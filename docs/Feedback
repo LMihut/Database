@@ -1,0 +1,31 @@
+Praktikum 1:
+
+Kann noch nicht testiert werden. Die Ausgabe der richtigen Antwort fehlt. Bitte bis zum nächsten Praktikum ergänzen.
+
+Praktikum 2:
+
+Noch kein Testat:
+
+Erwartetes Relationenmodell stimmt nicht mit generierten Tabellen überein: Tabelle Answer enthält den FK auf Question zweimal
+
+Nachprüfung ok, Sie haben das Testat
+
+Praktikum 3:
+
+Die Tabelle gamequestion hat ein anderes Schema als in Ihrer Vorbereitung. Bitte bis zum nächsten Praktikum die Dokumentation anpassen. Sonst in Ordnung
+
+Praktikum 4:
+
+Bericht sieht gut aus.
+
+Hochschuldatenbank nicht gefüllt! Ohne dass die Daten in die Hochschuldatenbank geladen wurden gibt es kein Testat.
+Bitte bis zum nächsten Praktikum durchführen und dort demonstrieren.
+
+Praktikum 5:
+
+Das war nicht leicht zu lesen, da Sie die Queries nochmal geändert haben -was richtig war-, diese Änderung aber nicht deutlich kenntlich gemacht haben.
+
+Nachdem man das verstanden hat: sehr schön.
+Auch Ihre Beobachtung zur Nutzung des Index auf dem Zeitstempel ist korrekt: Ist ein Index wenig selektiv (er liefert eine große Teilmenge der Daten), macht seine Nutzung keinen Sinn mehr
+
+Sie haben das Testat

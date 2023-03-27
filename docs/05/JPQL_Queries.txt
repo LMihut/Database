@@ -1,0 +1,65 @@
+JPQL Queries Vorbereitung
+
+1. Query 
+	"select distinct g.player from Game g"
+        + "where g.startTime between :start and :end order by g.gameid"
+ 
+ 2. Query
+ 	//spiele + gesammtzahl der Fragen
+ 	select distinct g.gameid, g.startTime, count(KEY(q)) "
+        + "from Game g join g.questionAnswer q "
+        + "where g.player.playerName = :rndPlayer group by g.gameid"
+        
+        //anzahl richtig beantworteter Fragen
+        "select g.gameid, count(q) from Game g join g.questionAnswer q where "
+        + "VALUE(q) = true and g.player.playerName = :rndPlayer group by g.gameid";
+        
+        
+        VERBESSERT
+        
+        "Select distinct g.gameid, g.startTime, count(KEY(q)),  "
+        + "sum(case when VALUE(q) = True then 1 else 0 END) as correctAnswerCount "
+        + "from Game g join g.questionAnswer q,"
+        + "Player p where g.player.playerName = :rndPlayer "
+        + "group by g.gameid "
+        
+ 3. Query
+ 	"select p.playerName, count(g) as gamecount from Player p, Game g "
+        + "where p.playerid = g.player.playerid group by p.playerName order by gamecount desc";
+        
+        VERBESSERT
+        select g.player.playerName, count(g) as gamecount from Game g "
+        + "group by g.player.playerName order by gamecount desc
+
+ 4. Query
+ 
+ 	VERBESSERT
+ 	
+ 	"select c.name, c.categoryId, count (c) as cc "
+        + "from Game g join g.questionAnswer qa, Question q, Category c where "
+        + "q.questionId = Key(qa).questionId AND q.category.categoryId = c.categoryId "
+        + "group by c.categoryId order by cc desc "
+        
+ 	
+ 	NICHT OPTIMAL
+ 	"select KEY(q).category from Game g join g.questionAnswer q";
+ 	// Die Sortierung der Kategorien haben wir übergangsweise mittels einer Map gemacht
+ 	
+ 	//fourth Query ->all categorys sort by choise
+    String query4 = "select KEY(q).category from Game g join g.questionAnswer q";
+    List<Category> sortedCat = em4.createQuery(query4).getResultList();
+    System.out.println("\nCategorys sorted by popularity: ");
+    Map<Category, Long> sortCat =
+        sortedCat.stream().collect(Collectors.groupingBy(e -> e, Collectors.counting()));
+    Map<Long, Category> assendSort = new TreeMap<Long, Category>(Collections.reverseOrder());
+    for (Map.Entry<Category, Long> entry : sortCat.entrySet()) {
+      assendSort.put(entry.getValue(), entry.getKey());
+    }
+    Set s = assendSort.entrySet();
+    Iterator it = s.iterator();
+    while (it.hasNext()) {
+      Map.Entry e = (Map.Entry)it.next();
+      System.out.println(e.getKey() + " " + ((Category) e.getValue()).getName());
+    }
+    
+    
